@@ -1,14 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-import VentasList from "./components/VentasList";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import VentasList from './components/VentasList';
+import RegistrarForm from './components/RegistrarForm';
 
-function App() {
+const App = () => {
   return (
+    <Router>
       <div>
-          <h1>Aplicación de Ventas</h1>
-          <VentasList />
+        <h1>Ventas</h1>
+        <Routes>
+          {}
+          <Route path="/" element={<VentasList />} />
+          
+          {}
+          <Route path="/registrar" element={<RegistrarForm />} />
+        </Routes>
       </div>
+    </Router>
   );
-}
+};
 
 export default App;
