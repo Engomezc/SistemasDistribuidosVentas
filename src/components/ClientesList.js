@@ -1,74 +1,72 @@
-// src/components/VentasList.js
+// src/components/ClientesList.js
 import React, { useEffect, useState } from "react";
-import VentasService from "../services/VentasService";
-import RegistrarForm from "./RegistrarForm";
-import { Link } from 'react-router-dom'; // Importar Link
+import ClientesService from "../services/ClientesService";
+import RegistrarFormC from "./RegistrarFormC";
+import { Link } from 'react-router-dom';
 
 const ClientesList = () => {
-  const [ventas, setVentas] = useState([]);
-  const [ventaEditada, setVentaEditada] = useState(null);
+  const [clientes, setClientes] = useState([]);
+  const [clienteEditado, setClienteEditado] = useState(null);
 
   useEffect(() => {
-    const obtenerVentas = async () => {
-      const data = await VentasService.obtenerVentas();
-      setVentas(data);
+    const obtenerCliente = async () => {
+      const data = await ClientesService.obtenerCliente();
+      setClientes(data);
     };
-    obtenerVentas();
+    obtenerCliente();
   }, []);
   
 
-  const handleEditarVenta = (venta) => {
-    setVentaEditada(venta);
+  const handleEditarCliente = (cliente) => {
+    setClienteEditado(cliente);
   };
 
-  const handleEliminarVenta = async (codigoVenta) => {
+  const handleEliminarCliente = async (cedulaCliente) => {
     try {
-      await VentasService.eliminarVenta(codigoVenta);
-      alert("Venta eliminada correctamente");
-      setVentas(ventas.filter((venta) => venta.codigoVenta !== codigoVenta)); // Eliminar de la lista
+      await ClientesService.eliminarCliente(cedulaCliente);
+      alert("Cliente eliminado correctamente");
+      setClientes(clientes.filter((cliente) => cliente.cedulaCliente !== cedulaCliente));
     } catch (error) {
-      alert("Error al eliminar la venta");
+      alert("Error al eliminar el cliente");
     }
   };
 
   return (
-    <div>
-      <h2>Modulo de Ventas</h2>
-      <Link to="/ventas">
-        <button>Registrar nueva venta</button>
+    <div className="ventas-container">
+      <h2 className="titulo">Lista de Clientes</h2>
+      <Link to="/clientes">
+        <button className="btn-registrar">Registrar nuevo Cliente</button>
       </Link>
-      <table>
+      <table className="ventas-table">
         <thead>
           <tr>
-            <th>Código Venta</th>
-            <th>Cédula Cliente</th>
-            <th>Cédula Usuario</th>
-            <th>Iva Venta</th>
-            <th>Total Venta</th>
-            <th>Valor Venta</th>
+            <th>Cédula</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Dirección</th>
+            <th>Telefono</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {ventas.map((venta) => (
-            <tr key={venta.codigoVenta}>
-              <td>{venta.codigoVenta}</td>
-              <td>{venta.cedulaCliente}</td>
-              <td>{venta.cedulaUsuario}</td>
-              <td>{venta.ivaVenta}</td>
-              <td>{venta.totalVenta}</td>
-              <td>{venta.valorVenta}</td>
+          {clientes.map((cliente) => (
+            <tr key={cliente.cedulaCliente}>
+              <td>{cliente.cedulaCliente}</td>
+              <td>{cliente.nombreCliente}</td>
+              <td>{cliente.emailCliente}</td>
+              <td>{cliente.direccionCliente}</td>
+              <td>{cliente.telefonoCliente}</td>
               <td>
-                <button onClick={() => handleEditarVenta(venta)}>Editar</button>
-                <button onClick={() => handleEliminarVenta(venta.codigoVenta)}>Eliminar</button>
+                <button className="btn-editar" onClick={() => handleEditarCliente(cliente)}>Editar</button>
+                <button className="btn-eliminar" onClick={() => handleEliminarCliente(cliente.codigoCliente)}>Eliminar</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* Mostrar el formulario de edición si se selecciona una venta */}
-      {ventaEditada && <RegistrarForm ventaEditada={ventaEditada} setVentaEditada={setVentaEditada} />}
+      {}
+      {clienteEditado && <RegistrarFormC clienteEditado={clienteEditado} setClienteEditado={setClienteEditado} />}
     </div>
   );
 };

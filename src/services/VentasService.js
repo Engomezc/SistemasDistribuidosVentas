@@ -34,7 +34,6 @@ class VentasService {
     }
   }
 
-  // Función para eliminar una venta
   async eliminarVenta(codigoVenta) {
     try {
       const response = await axios.delete(`${this.API_URL}/${codigoVenta}`);
