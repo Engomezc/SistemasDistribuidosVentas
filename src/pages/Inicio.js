@@ -1,7 +1,7 @@
 // src/pages/Inicio.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../App.css'; // Asegúrate de crear este archivo CSS para estilizar la página
+import '../App.css';
 
 const Inicio = () => {
   return (
