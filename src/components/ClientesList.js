@@ -2,10 +2,9 @@
 import React, { useEffect, useState } from "react";
 import VentasService from "../services/VentasService";
 import RegistrarForm from "./RegistrarForm";
-import { Link } from 'react-router-dom';
-import '../App.css'; 
+import { Link } from 'react-router-dom'; // Importar Link
 
-const VentasList = () => {
+const ClientesList = () => {
   const [ventas, setVentas] = useState([]);
   const [ventaEditada, setVentaEditada] = useState(null);
 
@@ -33,12 +32,12 @@ const VentasList = () => {
   };
 
   return (
-    <div className="ventas-container">
-      <h1 className="titulo">Lista de ventas</h1>
+    <div>
+      <h2>Modulo de Ventas</h2>
       <Link to="/ventas">
-      <button className="btn-registrar">Registrar Venta</button>
+        <button>Registrar nueva venta</button>
       </Link>
-      <table className="ventas-table">
+      <table>
         <thead>
           <tr>
             <th>Código Venta</th>
@@ -60,8 +59,8 @@ const VentasList = () => {
               <td>{venta.totalVenta}</td>
               <td>{venta.valorVenta}</td>
               <td>
-                <button className="btn-editar" onClick={() => handleEditarVenta(venta)}>Editar</button>
-                <button className="btn-eliminar" onClick={() => handleEliminarVenta(venta.codigoVenta)}>Eliminar</button>
+                <button onClick={() => handleEditarVenta(venta)}>Editar</button>
+                <button onClick={() => handleEliminarVenta(venta.codigoVenta)}>Eliminar</button>
               </td>
             </tr>
           ))}
@@ -74,4 +73,4 @@ const VentasList = () => {
   );
 };
 
-export default VentasList;
+export default ClientesList;
